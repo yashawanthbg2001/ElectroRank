@@ -302,9 +302,10 @@ async function generateProductPage(productId) {
 
 /**
  * Generate multiple pages
+ * First ensures all category pages exist, then generates product/comparison pages
  */
 async function generatePages(count = 5) {
-    console.log(`Starting page generation (${count} pages)...`);
+    console.log(`Starting page generation (up to ${count} new product/comparison pages)...`);
     
     const generatedPages = [];
     const categories = await getAllCategories();
@@ -314,46 +315,42 @@ async function generatePages(count = 5) {
         return generatedPages;
     }
     
-    let pagesGenerated = 0;
-    
-    // Generate category pages
+    // ALWAYS generate/update all category pages (not counted in daily limit)
+    console.log(`Generating category pages for all ${categories.length} categories...`);
     for (const category of categories) {
-        if (pagesGenerated >= count) break;
-        
         const pagePath = await generateCategoryPage(category);
         generatedPages.push({ type: 'category', path: pagePath });
-        pagesGenerated++;
     }
     
-    // Generate product pages
-    if (pagesGenerated < count) {
-        const topProducts = await getTopProducts(count - pagesGenerated);
+    let productPagesGenerated = 0;
+    
+    // Generate product pages (counted in daily limit)
+    const topProducts = await getTopProducts(count);
+    
+    for (const product of topProducts) {
+        if (productPagesGenerated >= count) break;
         
-        for (const product of topProducts) {
-            if (pagesGenerated >= count) break;
-            
-            const pagePath = await generateProductPage(product.productId);
-            if (pagePath) {
-                generatedPages.push({ type: 'product', path: pagePath });
-                pagesGenerated++;
-            }
+        const pagePath = await generateProductPage(product.productId);
+        if (pagePath) {
+            generatedPages.push({ type: 'product', path: pagePath });
+            productPagesGenerated++;
         }
     }
     
-    // Generate comparison pages
-    if (pagesGenerated < count && categories.length > 0) {
+    // Generate comparison pages if there's room (counted in daily limit)
+    if (productPagesGenerated < count && categories.length > 0) {
         const products = await getProductsByCategory(categories[0], 4);
         
         if (products.length >= 2) {
             const pagePath = await generateComparisonPage(products[0].productId, products[1].productId);
             if (pagePath) {
                 generatedPages.push({ type: 'comparison', path: pagePath });
-                pagesGenerated++;
+                productPagesGenerated++;
             }
         }
     }
     
-    console.log(`Generated ${generatedPages.length} pages successfully`);
+    console.log(`Generated ${generatedPages.length} pages successfully (${categories.length} category + ${productPagesGenerated} product/comparison)`);
     return generatedPages;
 }
 

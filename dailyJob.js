@@ -69,6 +69,7 @@ async function recalculateScores() {
 
 /**
  * Generate new pages
+ * Generates all category pages + specified number of product/comparison pages
  */
 async function generateNewPages(count = 5) {
     console.log('========================================');

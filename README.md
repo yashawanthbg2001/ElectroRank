@@ -8,7 +8,7 @@ An automated comparison and recommendation website for electronics gadgets. Elec
 - **Automated Scraping**: Daily scraping of product data from multiple sources
 - **Smart Ranking Algorithm**: Products ranked by: `score = (rating × 2) + (reviewCount / 1000) - (price / 10000)`
 - **SEO Optimized**: Meta tags, schema markup, internal linking, and sitemap generation
-- **Automated Page Generation**: Daily generation of 4-5 new pages (category, product, and comparison pages)
+- **Automated Page Generation**: Daily generation ensures all category pages exist, plus 4-5 new product/comparison pages daily
 - **Affiliate Integration**: Automatic Amazon affiliate link generation
 - **Database Storage**: SQLite database for efficient product data management
 
