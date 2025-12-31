@@ -1,0 +1,28 @@
+{
+  "name": "electrorank",
+  "version": "1.0.0",
+  "description": "Automated comparison and recommendation website for electronics gadgets",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "daily-job": "node dailyJob.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "electronics",
+    "comparison",
+    "recommendation",
+    "scraper",
+    "seo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.3"
+  }
+}
