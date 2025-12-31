@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "daily-job": "node dailyJob.js",
+    "daily-job": "node dailyJob.js --now",
+    "schedule": "node dailyJob.js --schedule",
+    "demo": "node demo.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [

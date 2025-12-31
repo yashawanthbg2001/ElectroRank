@@ -72,6 +72,20 @@ affiliateTag: 'your-amazon-affiliate-tag'
 
 ## Usage
 
+### Quick Demo
+
+Run a quick demonstration of the system:
+```bash
+npm run demo
+```
+
+This will show you:
+- System statistics
+- Top ranked products
+- Available features
+- Generated pages count
+- Available routes
+
 ### Running the Server
 
 Start the Express server:
@@ -94,16 +108,15 @@ The daily job handles:
 **Run immediately:**
 ```bash
 node dailyJob.js --now
+# or
+npm run daily-job
 ```
 
 **Schedule for daily execution (2:00 AM):**
 ```bash
 node dailyJob.js --schedule
-```
-
-**Using npm scripts:**
-```bash
-npm run daily-job
+# or
+npm run schedule
 ```
 
 ## API Endpoints
